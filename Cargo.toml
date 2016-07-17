@@ -1,0 +1,8 @@
+[package]
+name = "rad_ed"
+version = "0.1.0"
+authors = ["Adam <sector-f@users.noreply.github.com>"]
+
+[dependencies]
+irc = "0.11.*"
+chrono = "0.2.*"
