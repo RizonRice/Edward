@@ -11,18 +11,6 @@ use std::io::{self, BufReader, BufRead};
 use std::path::{Path, PathBuf};
 use std::process::Command as SysCommand;
 
-fn is_command(trigger: char, message: &str) -> bool {
-    match message.chars().nth(0) {
-        Some(character) => {
-            match character == trigger {
-                true => true,
-                false => false,
-            }
-        }
-        None => false,
-    }
-}
-
 fn get_reply_target(prefix: Option<String>, target: &str, nickname: &str) -> String {
     if target == nickname {
         let prefix = prefix.unwrap_or("".to_owned());
@@ -115,7 +103,7 @@ fn main() {
                             }
                         }
                     } else {
-                        if is_command(trigger, message) {
+                        if message.starts_with(trigger) {
                             if let Some(func) = commands.get(&message.split_whitespace().nth(0).unwrap_or("")[1..]) {
                                 if let Some(output) = run_command(&func) {
                                     let _ = server.send_privmsg(&target, &output);
